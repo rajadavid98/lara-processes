@@ -4,6 +4,10 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Process\Pool;
+use function Laravel\Prompts\text;
+use function Laravel\Prompts\password;
+use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\select;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,5 +100,78 @@ Artisan::command('test-processes', function () {
     $results = $pool->wait();
     $this->info($results['one']->output());
     $this->info($results['two']->output());
+
+});
+
+Artisan::command('test-prompts', function () {
+    //1
+//    $name = text('What is your name?');
+//    $this->info("Welcome $name!");
+
+    //2
+//    $name = text(
+//        label: 'What is your name?',
+//        placeholder: 'E.g. Taylor Otwell',
+//        default: 'Raja',
+//        hint: 'This will be displayed on your profile.'
+//    );
+//    $this->info("Your profile name is $name!");
+
+
+    //3.Required Values
+//    $name = text(
+//        label: 'What is your name?',
+//        required: true
+//    );
+//    $this->info("Welcome $name!");
+
+//    $name = text(
+//        label: 'What is your name?',
+//        required: 'Your name is required.'
+//    );
+//    $this->info("Welcome $name!");
+
+    //4. Additional Validation
+//    $name = text(
+//        label: 'What is your name?',
+//        validate: fn (string $value) => match (true) {
+//            strlen($value) < 3 => 'The name must be at least 3 characters.',
+//            strlen($value) > 255 => 'The name must not exceed 255 characters.',
+//            default => null
+//        }
+//    );
+//    $this->info("Welcome $name!");
+
+    //5. Password
+//    $password = password('What is your password?');
+//    $this->info("your password is - $password");
+
+    //6. confirm
+//    $confirmed = confirm(
+//        label: 'Do you accept the terms?',
+//        default: false,
+//        yes: 'I accept',
+//        no: 'I decline',
+//        hint: 'The terms must be accepted to continue.'
+//    );
+//    $this->info($confirmed);
+
+    //7. select
+//    $role = select(
+//        'What role should the user have?',
+//        ['Member', 'Contributor', 'Owner'],
+//    );
+//    $this->info($role);
+
+    $role = select(
+        label: 'Which category would you like to assign?',
+        options: collect([
+            ['Raja', 1],['Raja', 2],['Raja', 3],['Raja', 4],['Raja', 5],['Raja', 6],['Raja', 7],['Raja', 8],
+        ]),
+        scroll: 10
+    );
+    $this->info($role);
+
+
 
 });
